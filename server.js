@@ -18,17 +18,18 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-const mongoose = require("mongoose");
+app.use(express.json()); 
+app.use(morgan("dev"));  
+
+
 const testJWTRouter = require("./controllers/test-jwt");
-console.log("app");
 const usersRouter = require("./controllers/users");
 const profilesRouter = require("./controllers/profiles");
-const restaurantsRouter = require("./controllers/restaurants.js");
+const restaurantsRouter = require("./controllers/restaurants");
 
 mongoose.connect(process.env.MONGODB_URI);
-
 mongoose.connection.on("connected", () => {
-  console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
+  console.log(`Connected to MongoDB ${mongoose.connection.name}`);
 });
 
 app.use("/test-jwt", testJWTRouter);
