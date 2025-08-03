@@ -23,7 +23,7 @@ router.post("/google", async (req, res) => {
     if (!user) {
       user = await User.create({
         username: name,
-        hashedPassword: process.env.randomPass,
+        hashedPassword: process.env.RANDOM_PASS,
         googleId: sub,
       });
       
