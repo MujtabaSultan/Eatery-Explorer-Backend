@@ -8,28 +8,27 @@ dotenv.config();
 
 const app = express();
 const allowedOrigin = "https://eatery-explorer-frontend.vercel.app";
-app.use(express.json());
 
 const corsOptions = {
-  origin: "*",
+  origin: allowedOrigin,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-app.use(morgan("dev"));
-
+const mongoose = require("mongoose");
 const testJWTRouter = require("./controllers/test-jwt");
+console.log("app");
 const usersRouter = require("./controllers/users");
 const profilesRouter = require("./controllers/profiles");
-const restaurantsRouter = require("./controllers/restaurants");
+const restaurantsRouter = require("./controllers/restaurants.js");
 
 mongoose.connect(process.env.MONGODB_URI);
+
 mongoose.connection.on("connected", () => {
-  console.log(`Connected to MongoDB ${mongoose.connection.name}`);
+  console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
 app.use("/test-jwt", testJWTRouter);
@@ -37,6 +36,6 @@ app.use("/users", usersRouter);
 app.use("/profiles", profilesRouter);
 app.use("/restaurants", restaurantsRouter);
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT, () => {
   console.log("The express app is ready!");
 });
