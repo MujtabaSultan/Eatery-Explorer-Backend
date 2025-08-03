@@ -5,6 +5,8 @@ const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 
+app.options("*", cors({ origin: "*" }));
+
 const app = express();
 app.use(morgan("dev"));
 
@@ -21,11 +23,6 @@ mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
 app.use(express.json());
 
 // Routes go here
