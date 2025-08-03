@@ -7,10 +7,11 @@ const mongoose = require("mongoose");
 dotenv.config();
 
 const app = express();
+const allowedOrigin = "https://eatery-explorer-frontend.vercel.app";
 
 app.use(
   cors({
-    origin: "*",
+    origin: allowedOrigin,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
