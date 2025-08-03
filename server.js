@@ -1,14 +1,24 @@
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 
 dotenv.config();
-const cors = require("cors");
-const express = require("express");
-const morgan = require("morgan");
 
 const app = express();
-app.use(morgan("dev"));
-app.options("*", cors({ origin: "*" }));
 
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+app.use(express.json());
+app.use(morgan("dev"));
+app.options("*", cors());
 const mongoose = require("mongoose");
 const testJWTRouter = require("./controllers/test-jwt");
 
@@ -22,9 +32,6 @@ mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-app.use(express.json());
-
-// Routes go here
 app.use("/test-jwt", testJWTRouter);
 app.use("/users", usersRouter);
 app.use("/profiles", profilesRouter);
