@@ -7,19 +7,21 @@ const mongoose = require("mongoose");
 dotenv.config();
 
 const app = express();
+app.use(express.json());
+
 const allowedOrigin = "https://eatery-explorer-frontend.vercel.app";
 
 const corsOptions = {
-  origin: allowedOrigin,
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 };
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
+app.use(morgan("dev"))
 
 const testJWTRouter = require("./controllers/test-jwt");
-console.log("app");
 const usersRouter = require("./controllers/users");
 const profilesRouter = require("./controllers/profiles");
 const restaurantsRouter = require("./controllers/restaurants.js");
