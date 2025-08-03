@@ -8,21 +8,19 @@ dotenv.config();
 
 const app = express();
 const allowedOrigin = "https://eatery-explorer-frontend.vercel.app";
-app.use(express.json()); 
+app.use(express.json());
 
 const corsOptions = {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"], 
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
-
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-app.use(morgan("dev"));  
-
+app.use(morgan("dev"));
 
 const testJWTRouter = require("./controllers/test-jwt");
 const usersRouter = require("./controllers/users");
@@ -39,6 +37,6 @@ app.use("/users", usersRouter);
 app.use("/profiles", profilesRouter);
 app.use("/restaurants", restaurantsRouter);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("The express app is ready!");
 });
