@@ -11,7 +11,7 @@ const allowedOrigin = "https://eatery-explorer-frontend.vercel.app";
 app.use(express.json()); 
 
 const corsOptions = {
-  origin: allowedOrigin,
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"], 
