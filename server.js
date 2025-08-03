@@ -41,3 +41,13 @@ app.use("/restaurants", restaurantsRouter);
 app.listen(process.env.PORT, () => {
   console.log("The express app is ready!");
 });
+
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection:", reason);
+});
+
