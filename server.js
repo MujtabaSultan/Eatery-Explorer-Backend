@@ -16,13 +16,19 @@ app.use(
     credentials: true,
   })
 );
-
 app.use(express.json());
 app.use(morgan("dev"));
-app.options("*", cors());
+app.options(
+  "*",
+  cors({
+    origin: allowedOrigin,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
 const mongoose = require("mongoose");
 const testJWTRouter = require("./controllers/test-jwt");
-
+console.log("app")
 const usersRouter = require("./controllers/users");
 const profilesRouter = require("./controllers/profiles");
 const restaurantsRouter = require("./controllers/restaurants.js");
