@@ -8,6 +8,7 @@ dotenv.config();
 
 const app = express();
 const allowedOrigin = "https://eatery-explorer-frontend.vercel.app";
+app.use(express.json()); 
 
 const corsOptions = {
   origin: allowedOrigin,
@@ -18,7 +19,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-app.use(express.json()); 
 app.use(morgan("dev"));  
 
 
