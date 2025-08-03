@@ -5,10 +5,9 @@ const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 
-app.options("*", cors({ origin: "*" }));
-
 const app = express();
 app.use(morgan("dev"));
+app.options("*", cors({ origin: "*" }));
 
 const mongoose = require("mongoose");
 const testJWTRouter = require("./controllers/test-jwt");
